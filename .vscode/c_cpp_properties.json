@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/**"
+            ],
+            "defines": [],
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "compilerArgs": [
+                "-fdiagnostics-color=always",
+                "-Ofast",
+                "-ffast-math",
+                "-std=c++14",
+                "-Wall",
+                "-Wextra",
+                "-Wconversion",
+                "-pedantic",
+                "-fno-asm",
+                "-fno-ms-extensions",
+                "-fno-omit-frame-pointer",
+                "-pipe",
+                "-s",
+                "-static"
+            ]
+        }
+    ],
+    "version": 4
+}
