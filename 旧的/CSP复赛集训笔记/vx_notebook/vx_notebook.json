@@ -1,0 +1,125 @@
+{
+    "attachment_folder": "vx_attachments",
+    "config_mgr": "vx.vnotex",
+    "created_time": "2022-10-02T00:23:05Z",
+    "description": "CSP复赛集训笔记",
+    "extra_configs": {
+    },
+    "history": [
+        {
+            "last_accessed_time": "2023-03-02T03:37:12Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/插入排序.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:37:13Z",
+            "line_number": 6,
+            "path": "学而思/T2专题突破/T2总.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:37:17Z",
+            "line_number": 2,
+            "path": "学而思/T2专题突破/公交换乘.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:37:32Z",
+            "line_number": 1,
+            "path": "学而思/T2专题突破/超级斗地主.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:38:09Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/T2专项突破.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:38:14Z",
+            "line_number": 3,
+            "path": "学而思/T2专题突破/参考答案.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:38:18Z",
+            "line_number": 0,
+            "path": "学而思/T2专题突破/虫洞方程.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:39:30Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/生活大爆炸版石头剪刀布.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:42:50Z",
+            "line_number": 1,
+            "path": "学而思/T2专题突破/冒泡排序.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:43:03Z",
+            "line_number": 0,
+            "path": "学而思/T2专题突破/命名那个数字.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:43:26Z",
+            "line_number": 2,
+            "path": "学而思/T2专题突破/寻找宝藏.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:44:07Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/比例简化.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:44:08Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/MRAVOJED.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:44:16Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/TAJNA.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:44:34Z",
+            "line_number": 2,
+            "path": "学而思/T2专题突破/列表排序.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:45:11Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/ORGANIZATOR.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:45:41Z",
+            "line_number": -1,
+            "path": "学而思/T2专题突破/好数列.md"
+        },
+        {
+            "last_accessed_time": "2023-03-02T03:45:42Z",
+            "line_number": -1,
+            "path": "学而思/T3T4部分分/T3T4部分分.md"
+        },
+        {
+            "last_accessed_time": "2023-05-06T03:34:32Z",
+            "line_number": 3,
+            "path": "搜索剪枝技巧.md"
+        },
+        {
+            "last_accessed_time": "2023-05-06T03:34:54Z",
+            "line_number": 20,
+            "path": "STL_permutation.md"
+        },
+        {
+            "last_accessed_time": "2023-05-06T03:35:10Z",
+            "line_number": 2,
+            "path": "Wei.md"
+        },
+        {
+            "last_accessed_time": "2023-05-06T03:35:56Z",
+            "line_number": 22,
+            "path": "学而思/学而思复赛总结.md"
+        }
+    ],
+    "image_folder": "vx_images",
+    "name": "CSP复赛集训笔记",
+    "tag_graph": "",
+    "version": 3,
+    "version_controller": "dummy.vnotex"
+}

@@ -1,0 +1,81 @@
+#include<iostream>
+#include<cstdio>
+using namespace std;
+const int N = 100010;
+int m;
+//    数值，左，右，结点数
+int e[N], l[N], r[N], idx;
+// 初始化
+void init()
+{
+	//0表示左端点，1表示右端点
+	r[0] = 1;
+	l[1] = 0;
+	idx = 2;
+}
+// 在第k个结点右侧插入x
+void insert(int k, int x)
+{
+	e[idx] = x;
+	l[idx] = k;
+	r[idx] = r[k];
+	l[r[k]] = idx;
+	r[k] = idx++;
+}
+// 在第k个结点左侧插入x
+void insert_left(int k, int x)
+{
+	insert(l[k], x);
+}
+// 删除第k个结点
+void remove(int k)
+{
+	r[l[k]] = r[k];
+	l[r[k]] = l[k];
+}
+int main()
+{
+	int m = 0;
+	scanf("%d", &m);
+	init();
+	while (m--)
+	{
+		string op;
+		cin >> op;
+		int x = 0, k = 0;
+		if (op == "L")
+		{
+			// 在链表的最左端插入数 x
+			scanf("%d", &x);
+			insert(0, x);
+		}
+		else if (op == "R")
+		{
+			// 在链表的最右端插入数 x
+			scanf("%d", &x);
+			insert_left(1, x);
+		}
+		else if (op == "D")
+		{
+			// 将第 k 个插入的数删除
+			scanf("%d", &k);
+			remove(k + 1);
+		}
+		else if (op == "IL")
+		{
+			// 在第 k 个插入的数左侧插入一个数
+			scanf("%d %d", &k, &x);
+			insert_left(k + 1, x);
+		}
+		else
+		{
+			// 在第 k 个插入的数右侧插入一个数
+			scanf("%d %d", &k, &x);
+			insert(k + 1, x);
+		}
+	}
+	// 输出链表的值
+	for (int i = r[0] ; i != 1 ; i = r[i])
+		printf("%d ", e[i]);
+	return 0;
+}

@@ -1,0 +1,40 @@
+{
+    "created_time": "2022-09-24T13:07:36Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "created_time": "2022-10-03T00:28:34Z",
+            "id": "160",
+            "modified_time": "2022-10-03T08:56:47Z",
+            "name": "学而思复赛总结.md",
+            "signature": "15240209107456",
+            "tags": [
+            ]
+        },
+        {
+            "attachment_folder": "319504612221149",
+            "created_time": "2022-10-04T07:11:46Z",
+            "id": "74",
+            "modified_time": "2023-02-10T13:56:23Z",
+            "name": "笔记_杂.md",
+            "signature": "67535730629810",
+            "tags": [
+            ]
+        }
+    ],
+    "folders": [
+        {
+            "name": "算法基础课"
+        },
+        {
+            "name": "自学笔记"
+        },
+        {
+            "name": "洛谷2022秋季"
+        }
+    ],
+    "id": "1",
+    "modified_time": "2022-09-24T13:07:36Z",
+    "signature": "27205986877720",
+    "version": 3
+}
