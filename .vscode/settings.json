@@ -122,5 +122,7 @@
         "cstdalign": "cpp"
     },
     "notebook.output.wordWrap": true,
-    "luogu.effectiveDuration": -1
+    "luogu.effectiveDuration": -1,
+    "files.autoSave": "afterDelay",
+    "workbench.colorTheme": "Photonica Light Azure"
 }
