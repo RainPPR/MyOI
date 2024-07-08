@@ -4,11 +4,11 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Program Files (x86)/Dev-Cpp/MinGW64/**"
+                "D:/Programming/mingw64/**"
             ],
             "defines": [],
             "intelliSenseMode": "linux-gcc-x64",
-            "compilerPath": "C:/Program Files (x86)/Dev-Cpp/MinGW64/bin/g++.exe",
+            "compilerPath": "D:/Programming/mingw64/bin/g++.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "compilerArgs": [

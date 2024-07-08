@@ -9,7 +9,7 @@
 		"python": "python -u",
         "pascal": "fpc \"$fileName\" -O2\ntime \"./$fileNameWithoutExt\" && rm -f \"./$fileNameWithoutExt\" && rm -f \"./$fileNameWithoutExt.o\"",
 		"c": "gcc \"$fileName\" -O2 -Wall -Wextra -DONLINE_JUDGE",
-		"cpp": "g++ \"$fileName\" -fdiagnostics-color=always -Ofast -ffast-math -std=c++17 -Wall -Wextra -Wconversion -pedantic -fno-asm -fno-ms-extensions -fno-omit-frame-pointer -pipe -s -static && echo Accepted! && ./a.out"
+		"cpp": "g++ \"$fileName\" -fdiagnostics-color=always -Ofast -ffast-math -std=c++17 -Wall -Wextra -Wconversion -pedantic -fno-asm -fno-ms-extensions -fno-omit-frame-pointer -pipe -s -static && echo Accepted! && ./a.exe"
 	},
     "editor.mouseWheelZoom": true,
     "editor.wordWrap": "off",
@@ -124,5 +124,7 @@
     "notebook.output.wordWrap": true,
     "luogu.effectiveDuration": -1,
     "files.autoSave": "onWindowChange",
-    "workbench.colorTheme": "Photonica Light Azure"
+    "workbench.colorTheme": "Photonica Light Azure",
+    "luogu.alwaysEnableO2": true,
+    "luogu.defaultWaitingTime": 500
 }
