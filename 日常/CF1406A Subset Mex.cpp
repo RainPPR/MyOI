@@ -12,25 +12,32 @@ using namespace std;
 #define D(x) ({ void(0); })
 #endif
 
-template<typename it>
-it m_find(it l, it r) {
-    for (int i = 0; l != r; ++i, ++l)
-        if (*l != i) return l;
-    return r;
-}
+constexpr int N = 110;
+
+array<int, N> a, b;
 
 void Main() {
     int n;
     cin >> n;
-    vector<int> a(n);
-    copy_n(istream_iterator<int>(cin), n, a.begin());
-    sort(a.begin(), a.end());
-    a.erase(unique(a.begin(), a.end()), a.end());
-    auto it = m_find(a.begin(), a.end());
+    a.fill(0), b.fill(0);
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        ++(a[x] ? b : a)[x];
+    }
     int ans = 0;
-    if (it == a.begin()) ans = *a.begin() - 1;
-    else if (it == a.end()) ans = n;
-    else ans = it - a.begin();
+    for (int i = 0; i < N; ++i) {
+        if (!a[i]) {
+            ans += i;
+            break;
+        }
+    }
+    for (int i = 0; i < N; ++i) {
+        if (!b[i]) {
+            ans += i;
+            break;
+        }
+    }
     cout << ans << endl;
 }
 
