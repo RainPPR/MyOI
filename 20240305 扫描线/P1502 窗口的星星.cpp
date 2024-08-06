@@ -23,58 +23,67 @@ int n, W, H;
 using ll = long long;
 
 struct line {
-    int x1, x2, y, v;
+    ll x1, x2, y, v;
     line() = default;
-    line(int a, int b, int y, int v): x1(a), x2(b), y(y), v(v) {}
-    friend bool operator <(const line &a, const line &b) { return a.y < b.y; }
+    line(ll a, ll b, ll y, ll v): x1(a), x2(b), y(y), v(v) {}
+    friend bool operator <(const line &a, const line &b) {
+        if (a.y == b.y) return a.v > b.v;
+        return a.y < b.y;
+    }
 };
 
 namespace seg {
     #define ls(k) ((k) << 1)
     #define rs(k) ((k) << 1 | 1)
 
-    vector<int> q;
-
     struct node {
-        int l, r;
+        ll l, r;
         ll v, add;
-    } a[N << 2];
+    } a[N << 3];
+
+    void action(int k, ll v) {
+        a[k].v += v;
+        a[k].add += v;
+    }
 
     void push_up(int k) {
         a[k].v = max(a[ls(k)].v, a[rs(k)].v);
     }
 
-    void action(int k, int v) {
-        a[k].v += v;
-        a[k].add += v;
-    }
-
-    void push_down(int k) {
-        ;
-    }
-
-    void build(int k, int l, int r) {
-        a[k] = {q[l], q[r], 0};
+    void build(int k, ll l, ll r) {
+        a[k] = {l, r, 0, 0};
         if (l == r) return;
-        int mid = (l + r) >> 1;
+        ll mid = l + ((r - l) >> 1);
         build(ls(k), l, mid);
         build(rs(k), mid + 1, r);
     }
 
-    void modify(int k, int p, int q, int v) {
-        ;
+    void push_down(int k) {
+        if (a[k].add == 0) return;
+        action(ls(k), a[k].add);
+        action(rs(k), a[k].add);
+        a[k].add = 0;
     }
 
-    void init(const auto &s, int n) {
-        q = s;
+    void modify(int k, ll p, ll q, ll v) {
+        ll l = a[k].l, r = a[k].r;
+        if (l >= p && r <= q) return action(k, v);
+        push_down(k);
+        ll mid = l + ((r - l) >> 1);
+        if (mid >= p) modify(ls(k), p, q, v);
+        if (mid + 1 <= q) modify(rs(k), p, q, v);
+        push_up(k);
+    }
+
+    void init(int n) {
         build(1, 1, n);
     }
 
-    void change(int a, int b, int c) {
+    void change(ll a, ll b, ll c) {
         modify(1, a, b, c);
     }
 
-    void calc() {
+    ll calc() {
         return a[1].v;
     }
 }
@@ -83,10 +92,10 @@ ll Main() {
     vector<line> q;
     vector<int> s;
     for (int i = 1; i <= n; ++i) {
-        int x, y, l;
-        cin >> x >> y >> l;
-        int x1, y1, x2, y2;
-        tie(x1, y1, x2, y2) = make_tuple(x, y, x + W - 1, y + H - 1);
+        ll x1, y1, l;
+        cin >> x1 >> y1 >> l;
+        ll x2 = x1 + W - 1;
+        ll y2 = y1 + H - 1;
         s.push_back(x1);
         s.push_back(x2);
         q.emplace_back(x1, x2, y1, l);
@@ -95,10 +104,11 @@ ll Main() {
     sort(q.begin(), q.end());
     sort(s.begin(), s.end());
     s.erase(unique(s.begin(), s.end()), s.end());
-    seg::init(s, (int)s.size());
+    #define get_id(x) (lower_bound(s.begin(), s.end(), x) - s.begin() + 1)
+    seg::init((int)s.size());
     ll ans = 0;
     for (int i = 0; i + 1 < (int)q.size(); ++i) {
-        seg::change(q[i].x1, q[i].x2, q[i].v);
+        seg::change(get_id(q[i].x1), get_id(q[i].x2), q[i].v);
         ans = max(ans, seg::calc());
     }
     return ans;
