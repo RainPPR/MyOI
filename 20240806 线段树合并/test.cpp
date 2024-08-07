@@ -84,17 +84,22 @@ struct node {
 
 int tot;
 
-node a[N << 6];
+vector<node> a(1);
+
+int new_node() {
+    a.push_back(node());
+    return ++tot;
+}
 
 void push_up(int k) {
-    int l = a[k].lss, r = a[k].rss;
-    if (a[l].v == a[r].v) a[k].v = a[l].v, a[k].mx = min(a[l].mx, a[r].mx);
-    else if (a[l].v > a[r].v) a[k].v = a[l].v, a[k].mx = a[l].mx;
-    else if (a[l].v < a[r].v) a[k].v = a[r].v, a[k].mx = a[r].mx;
+    if (a[a[k].lss].v > a[a[k].rss].v)
+        a[k].v = a[a[k].lss].v, a[k].mx = a[a[k].lss].mx;
+    else
+        a[k].v = a[a[k].rss].v, a[k].mx = a[a[k].rss].mx;
 }
 
 void modify(int &k, int l, int r, int x, int v) {
-    if (!k) k = ++tot;
+    if (!k) k = new_node();
     if (l == r) {
         a[k].v += v;
         a[k].mx = l;
@@ -102,9 +107,10 @@ void modify(int &k, int l, int r, int x, int v) {
     }
     int mid = (l + r) >> 1;
     if (x <= mid) modify(a[k].lss, l, mid, x, v);
-    else modify(a[k].rss, mid + 1, r, x, v);
+    else if (!a[k].rss) modify(a[k].rss, mid + 1, r, x, v);
     push_up(k);
 }
+
 
 int merge(int x, int y, int l, int r) {
     if (!x || !y) return x + y;
@@ -118,9 +124,20 @@ int merge(int x, int y, int l, int r) {
     return push_up(x), x;
 }
 
+void Debug(int root, ostream &out = cerr, int l = 1, int r = 1e5) {
+    if (l == r) {
+        if (l <= 5)
+            out << "| DEBUG " << l << ": " << a[root].v << endl;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    Debug(a[root].lss, out, l, mid);
+    Debug(a[root].rss, out, mid + 1, r);
+}
+
 #define merge(x, y) merge(x, y, 1, (int)1e5)
-#define modify(k, x, v) modify(k, 1, (int)1e5, x, v)
-#define get_ans(k) a[k].mx
+#define modify(k, x, v) ({ D(k), D(x), D(v); modify(k, 1, (int)1e5, x, v); })
+#define get_ans(k) a[k].v
 
 // -----------------------------------------------------------------------------
 
@@ -132,6 +149,8 @@ void dfs(int u) {
             dfs(v);
             root[u] = merge(root[u], root[v]);
         }
+    cerr << "| ROOT = " << u << endl;
+    Debug(root[u], cerr);
     ans[u] = get_ans(root[u]);
 }
 
@@ -147,7 +166,7 @@ void Main() {
     }
     dfs1(1, -1), dfs2(1, 1);
     for (int i = 1; i <= n; ++i)
-        root[i] = ++tot;
+        root[i] = new_node();
     for (int i = 1; i <= m; ++i) {
         int u, v, w;
         cin >> u >> v >> w;
