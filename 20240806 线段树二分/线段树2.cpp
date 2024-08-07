@@ -19,6 +19,8 @@ using namespace std;
 namespace ds {
     constexpr int N = 5e5 + 10;
 
+    int n;
+
     struct node {
         int l, r, v;
     } a[N << 2];
@@ -43,34 +45,17 @@ namespace ds {
         }
     }
 
-    vector<int> pos;
-
-    int query(int k, int p, int &x) {
+    int query(int k, int p, int q) {
         int l = a[k].l, r = a[k].r;
-        if (l >= p) {
-            if (a[k].v < x) {
-                x -= a[k].v;
-                return -1;
-            }
-            while (a[k].l != a[k].r) {
-                if (a[k << 1].v < x)
-                    x -= a[k << 1].v, k = k << 1 | 1;
-                else
-                    k = k << 1;
-            }
-            return a[k].l;
-        }
-        if (l == r) return -1;
+        if (l >= p && r <= q) return a[k].v;
         int mid = (l + r) >> 1;
-        if (p <= mid) {
-            int t = query(k << 1, p, x);
-            if (t != -1) return t;
-        }
-        return query(k << 1 | 1, p, x);
+        if (q <= mid) return query(k << 1, p, q);
+        if (p >= mid + 1) return query(k << 1 | 1, p, q);
+        return query(k << 1, p, q) + query(k << 1 | 1, p, q);
     }
 
-    void init(int n) {
-        build(1, 1, n);
+    void init(int m) {
+        build(1, 1, n = m);
     }
 
     void add(int x) {
@@ -81,8 +66,17 @@ namespace ds {
         modify(x, -1);
     }
 
-    int rnk(int l, int k) {
-        return query(1, l, k);
+    int rnk(int p, int k) {
+        int l = p, r = n;
+        int ans = 0;
+        while (l <= r) {
+            int mid = (l + r) >> 1;
+            if (query(1, p, mid) >= k)
+                ans = mid, r = mid - 1;
+            else
+                l = mid + 1;
+        }
+        return ans;
     }
 }
 

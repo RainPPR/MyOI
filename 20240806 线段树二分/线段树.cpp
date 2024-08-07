@@ -43,8 +43,6 @@ namespace ds {
         }
     }
 
-    vector<int> pos;
-
     int query(int k, int p, int &x) {
         int l = a[k].l, r = a[k].r;
         if (l >= p) {
