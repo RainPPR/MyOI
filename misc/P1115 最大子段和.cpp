@@ -1,5 +1,5 @@
 // Author: RainPPR
-// Datetime: 2024-08-22 10:37
+// Datetime: 2024-08-22 20:52
 
 #ifndef M_DEBUG
 #define NDEBUG 1
@@ -53,38 +53,33 @@ using pqueue = __gnu_pbds::priority_queue<T, CMP>;
 
 // -----------------------------------------------------------------------------
 
-constexpr int N = 110;
+using ll = long long;
 
-int n, m;
+#define int ll
 
-int A[N][N];
-int F[N][N], G[N][N];
+constexpr int N = 2e5 + 10;
+
+int F[N];
+
+int MSS(int *A, int n, function<int(int, int)> cmp) {
+	for (int i = 1; i <= n; ++i)
+		F[i] = cmp(F[i - 1], 0ll) + A[i];
+	int Ans = F[1];
+	for (int i = 2; i <= n; ++i)
+		Ans = cmp(Ans, F[i]);
+	return Ans;
+}
+
+int n, Sum, A[N];
 
 void Main() {
-	cin >> n >> m;
+	cin >> n;
 	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			cin >> A[i][j];
-	memset(F, -0x3f, sizeof F);
-	F[0][0] = 0;
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			for (int k = 0; k < j; ++k)
-				if (F[i - 1][k] + A[i][j] > F[i][j])
-					F[i][j] = F[i - 1][k] + A[i][j], G[i][j] = k;
-	int Ans = -1e9, Pos = 0;
-	for (int i = 1; i <= m; ++i)
-		if (F[n][i] > Ans)
-			Ans = F[n][i], Pos = i;
-	cout << Ans << endl;
-	vector<int> Res;
-	for (int i = n; i >= 1; --i) {
-		Res.push_back(Pos);
-		Pos = G[i][Pos];
-	}
-	for (auto it = Res.rbegin(); it != Res.rend(); ++it)
-		cout << *it << " ";
-	cout << endl;
+		cin >> A[i];
+	auto Max = [] (int a, int b) {
+		return max(a, b);
+	};
+	cout << MSS(A, n, Max) << endl;
 }
 
 // -----------------------------------------------------------------------------

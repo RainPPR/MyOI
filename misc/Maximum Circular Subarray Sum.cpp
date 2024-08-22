@@ -1,5 +1,5 @@
 // Author: RainPPR
-// Datetime: 2024-08-22 10:37
+// Datetime: 2024-08-22 20:52
 
 #ifndef M_DEBUG
 #define NDEBUG 1
@@ -53,38 +53,45 @@ using pqueue = __gnu_pbds::priority_queue<T, CMP>;
 
 // -----------------------------------------------------------------------------
 
-constexpr int N = 110;
+using ll = long long;
 
-int n, m;
+#define int ll
 
-int A[N][N];
-int F[N][N], G[N][N];
+constexpr int N = 1e5 + 10;
+
+int F[N];
+
+int MSS(int *A, int n, function<int(int, int)> cmp) {
+	for (int i = 1; i <= n; ++i)
+		F[i] = cmp(F[i - 1], 0ll) + A[i];
+	int Ans = F[1];
+	for (int i = 2; i <= n; ++i)
+		Ans = cmp(Ans, F[i]);
+	return Ans;
+}
+
+int n, Sum, A[N];
 
 void Main() {
-	cin >> n >> m;
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			cin >> A[i][j];
-	memset(F, -0x3f, sizeof F);
-	F[0][0] = 0;
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			for (int k = 0; k < j; ++k)
-				if (F[i - 1][k] + A[i][j] > F[i][j])
-					F[i][j] = F[i - 1][k] + A[i][j], G[i][j] = k;
-	int Ans = -1e9, Pos = 0;
-	for (int i = 1; i <= m; ++i)
-		if (F[n][i] > Ans)
-			Ans = F[n][i], Pos = i;
-	cout << Ans << endl;
-	vector<int> Res;
-	for (int i = n; i >= 1; --i) {
-		Res.push_back(Pos);
-		Pos = G[i][Pos];
+	cin >> n, Sum = 0;
+	if (n == 1) {
+		int x;
+		cin >> x;
+		cout << x << endl;
+		return;
 	}
-	for (auto it = Res.rbegin(); it != Res.rend(); ++it)
-		cout << *it << " ";
-	cout << endl;
+	for (int i = 1; i <= n; ++i)
+		cin >> A[i], Sum += A[i];
+	auto Max = [] (int a, int b) {
+		return max(a, b);
+	};
+	auto Min = [] (int a, int b) {
+		return min(a, b);
+	};
+	int Ans = MSS(A, n, Max);
+	Ans = max(Ans, Sum - MSS(A, n - 1, Min));
+	Ans = max(Ans, Sum - MSS(A + 1, n - 1, Min));
+	cout << Ans << endl;
 }
 
 // -----------------------------------------------------------------------------
@@ -96,7 +103,10 @@ signed main() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr), cout.tie(nullptr);
 #endif
-	Main();
+	int T;
+	cin >> T;
+	while (T--)
+		Main();
 	return 0;
 }
 

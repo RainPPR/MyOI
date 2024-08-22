@@ -1,5 +1,5 @@
 // Author: RainPPR
-// Datetime: 2024-08-22 10:37
+// Datetime: 2024-08-22 15:02
 
 #ifndef M_DEBUG
 #define NDEBUG 1
@@ -53,38 +53,62 @@ using pqueue = __gnu_pbds::priority_queue<T, CMP>;
 
 // -----------------------------------------------------------------------------
 
-constexpr int N = 110;
+constexpr int N = 3e3 + 10;
 
-int n, m;
+void init_matching(int n, int *A, int k, int *C, int *P) {
+	for (int i = 1; i + k - 1 <= n; ++i) {
+		int p = i, q = 1;
+		while (p <= n && q <= k) {
+			q += (A[p] == C[q]);
+			++p;
+		}
+		P[i] = (q > k) ? p - 1 : 0;
+	}
+}
 
-int A[N][N];
+int n, A[N], P[N];
+int m, B[N], Q[N];
+int k, C[N];
 int F[N][N], G[N][N];
 
+void init_LCS() {
+	for (int i = 1; i <= n; ++i)
+		for (int j = 1; j <= m; ++j)
+			if (A[i] == B[j])
+				F[i][j] = F[i - 1][j - 1] + 1;
+			else
+				F[i][j] = max(F[i][j - 1], F[i - 1][j]);
+}
+
+void init_rLCS() {
+	for (int i = n; i >= 1; --i)
+		for (int j = m; j >= 1; --j)
+			if (A[i] == B[j])
+				G[i][j] = G[i + 1][j + 1] + 1;
+			else
+				G[i][j] = max(G[i][j + 1], G[i + 1][j]);
+}
+
+int get_ans() {
+	int Ans = -1;
+	for (int i = 1; i + k - 1 <= n; ++i)
+		for (int j = 1; j + k - 1 <= m; ++j)
+			if (P[i] && Q[j])
+				Ans = max(Ans, F[i - 1][j - 1] + G[P[i] + 1][Q[j] + 1] + k);
+	return Ans;
+}
+
 void Main() {
-	cin >> n >> m;
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			cin >> A[i][j];
-	memset(F, -0x3f, sizeof F);
-	F[0][0] = 0;
-	for (int i = 1; i <= n; ++i)
-		for (int j = 1; j <= m; ++j)
-			for (int k = 0; k < j; ++k)
-				if (F[i - 1][k] + A[i][j] > F[i][j])
-					F[i][j] = F[i - 1][k] + A[i][j], G[i][j] = k;
-	int Ans = -1e9, Pos = 0;
-	for (int i = 1; i <= m; ++i)
-		if (F[n][i] > Ans)
-			Ans = F[n][i], Pos = i;
-	cout << Ans << endl;
-	vector<int> Res;
-	for (int i = n; i >= 1; --i) {
-		Res.push_back(Pos);
-		Pos = G[i][Pos];
-	}
-	for (auto it = Res.rbegin(); it != Res.rend(); ++it)
-		cout << *it << " ";
-	cout << endl;
+	cin >> n;
+	copy_n(istream_iterator<int>(cin), n, A + 1);
+	cin >> m;
+	copy_n(istream_iterator<int>(cin), m, B + 1);
+	cin >> k;
+	copy_n(istream_iterator<int>(cin), k, C + 1);
+	init_matching(n, A, k, C, P);
+	init_matching(m, B, k, C, Q);
+	init_LCS(), init_rLCS();
+	cout << get_ans() << endl;
 }
 
 // -----------------------------------------------------------------------------

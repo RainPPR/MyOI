@@ -53,7 +53,7 @@ using pqueue = __gnu_pbds::priority_queue<T, CMP>;
 
 // -----------------------------------------------------------------------------
 
-constexpr int MOD = 998244353;
+constexpr int MOD = 1e9 + 7;
 
 int n, tar;
 
@@ -73,28 +73,25 @@ int get(int l, int r) {
 	return (S[r] - 1ll * S[l - 1] * R[r - l + 1] % MOD + MOD) % MOD;
 }
 
-unordered_set<int> F[50][50];
+int F[50][(int)1e5 + 10];
 
 void Main() {
 	cin >> str >> tar;
-	n = str.size();
-	init();
-	for (int i = 1; i <= n; ++i) {
-		if (i <= 7)
-			F[i][0].insert(get(1, i));
-		for (int k = 1; k < i; ++k)
-			for (int j = max(2, i - 6); j <= i; ++j)
-				for (int t : F[j - 1][k - 1])
-					//	if (t + get(j, i) <= tar)
-					F[i][k].insert(t + get(j, i));
-	}
-	int Ans = 1e9;
-	for (int k = 0; k < n; ++k)
-		for (int t : F[n][k])
-			if (t == tar) {
-				Ans = k;
-				break;
+	n = str.size(), init();
+	memset(F, 0x3f, sizeof F);
+	F[0][0] = -1;
+	for (int i = 1; i <= n; ++i)
+		for (int j = 1; j <= tar; ++j) {
+			for (int k = i - 1; k >= 0; --k) {
+				int t = get(k + 1, i);
+				if (t > j)
+					break;
+				F[i][j] = min(F[i][j], F[k][j - t] + 1);
 			}
+		}
+	int Ans = F[n][tar];
+	if (Ans + 1 >= 0x3f3f3f3f)
+		Ans = -1;
 	cout << Ans << endl;
 }
 
