@@ -38,3 +38,7 @@ Downloads/
 个人题库/
 *-ignore*
 tempCodeRunnerFile.cpp
+test_input.txt
+*/P*_*.in
+*/P*_*.out
+*/P*_*.ans
