@@ -11,5 +11,9 @@ del /f /s /q *.tmp
 del /f /s /q *.dmp
 del /f /s /q *.log
 del /f /s /q *.temp
+del /f /s /q *.in
+del /f /s /q *.out
+del /f /s /q *.ans
+del /f /s /q *.txt
 
 pause
